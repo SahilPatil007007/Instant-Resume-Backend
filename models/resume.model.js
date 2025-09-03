@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
 
 const resumeSchema = new mongoose.Schema({
-    uniqueId: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    email: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        required: true
+    },
+    title:{
+        type: String,
+        default: "Untitled Resume",
     },
     personalInfo: {
         name: { type: String, required: true },

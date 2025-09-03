@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+
+    resumes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Resume" }]
+    
 }, {timestamps: true})
 
 const User = mongoose.model('User', userSchema);
