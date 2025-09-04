@@ -2,7 +2,8 @@ import express from 'express';
 import connectToMongoDB from './db/connectToMongoDB.js';
 import cookieParser from 'cookie-parser';
 import authRouter from './controller/auth.controller.js';
-import resumeRouter from './controller/resume.controller.js'
+import resumeRouter from './controller/resume.controller.js';
+import aiRouter from './controller/ai.controller.js';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/resume", resumeRouter);
+app.use("/api/ai", aiRouter);
 
 app.listen(3000, () => {
     connectToMongoDB();
