@@ -11,8 +11,8 @@ const resumeSchema = new mongoose.Schema({
         default: "Untitled Resume",
     },
     personalInfo: {
-        name: { type: String, required: true },
-        email: { type: String, required: true },
+        name: { type: String },
+        email: { type: String },
         phone: { type: String },
         address: { type: String },
         linkedin: { type: String },
@@ -23,11 +23,12 @@ const resumeSchema = new mongoose.Schema({
     },
 
     summary: { type: String },
+    jobDescription: { type: String },
 
     education: [
         {
-            degree: { type: String, required: true },
-            institution: { type: String, required: true },
+            degree: { type: String },
+            institution: { type: String },
             startDate: { type: Date },
             endDate: { type: Date },
             score: { type: String }
@@ -36,8 +37,8 @@ const resumeSchema = new mongoose.Schema({
 
     experience: [
         {
-            title: { type: String, required: true },
-            company: { type: String, required: true },
+            title: { type: String },
+            company: { type: String },
             startDate: { type: Date },
             endDate: { type: Date },
             description: [{ type: String }]
@@ -46,8 +47,8 @@ const resumeSchema = new mongoose.Schema({
 
     projects: [
         {
-            name: { type: String, required: true },
-            description: { type: String },
+            name: { type: String },
+            description: [{ type: String }],
             technologies: [{ type: String }],
             link: { type: String }
         }
@@ -57,7 +58,7 @@ const resumeSchema = new mongoose.Schema({
 
     certifications: [
         {
-            title: { type: String, required: true },
+            title: { type: String },
             issuer: { type: String },
             date: { type: Date }
         }

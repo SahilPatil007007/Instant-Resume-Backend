@@ -10,7 +10,7 @@ export const signup = async (req, res) => {
         const user = await User.findOne({ email });
 
         if(user){
-            return res.status(400).json({error: "User already exist Please Login"});
+            return res.status(409).json({message: "User already exists. Please login instead."});
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -32,11 +32,12 @@ export const signup = async (req, res) => {
                 email: newUser.email,
             });
         }else{
-            res.status(400).json({error: "Invalid User Data"});
+            res.status(400).json({message: "Invalid user data provided"});
         }
         
     } catch(error) {
-        res.status(500).json({error: "Internal Server Error"});
+        console.error('Signup error:', error);
+        res.status(500).json({message: "Failed to create account. Please try again."});
     }
 };
 
@@ -49,7 +50,7 @@ export const login = async(req,res) => {
         const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
 
         if(!user || !isPasswordCorrect){
-            return res.status(400).json({error: "Invalid username or password"});
+            return res.status(401).json({message: "Invalid email or password"});
         }
 
         generateTokenAndSetCookie(user._id, res);
@@ -61,7 +62,8 @@ export const login = async(req,res) => {
         });
 
     } catch (error){
-        res.status(500).json({error: "Internal Server Error"});
+        console.error('Login error:', error);
+        res.status(500).json({message: "Failed to login. Please try again."});
     }
 };
 
@@ -76,6 +78,7 @@ export const logout = (req, res) => {
         });
         res.status(200).json({ message: "Logged out successfully" });
     }catch(error){
-        res.status(500).json({error: "Internal Server Error"});
+        console.error('Logout error:', error);
+        res.status(500).json({message: "Failed to logout. Please try again."});
     }
 };
